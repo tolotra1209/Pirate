@@ -16,4 +16,8 @@ public class Pion extends Pirate{
 	public int getPosition() {
 		return position;
 	}
+	
+	public void deplacerPion(int newPos) {
+		position += newPos;
+	}
 }

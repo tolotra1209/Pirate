@@ -26,17 +26,19 @@ public class Jeu {
 	
 	
 	public String afficherPosition(Pion pion) {
-		return "Le joueur "+ pion.getNom() +" est à la case "+pion.getPosition()+".";
+		return "Le joueur "+ pion.getNom() +" avance jusqu'à la case "+pion.getPosition()+".";
 	}
 	
 	public void tourPion(Pion pion) {
 		System.out.println("Appuyez sur entrée pour lancée le dé....");
 		scanner.nextLine();
 		
-		System.out.println(resultatDes());
-		
+		int res1 = resultatDes();
+		System.out.println("Résultat dé: "+res1);
+		pion.deplacerPion(res1);
 		
 		System.out.println(afficherPosition(pion));
+		
 	}
 	
 	public static int lancerDe() {
@@ -47,11 +49,27 @@ public class Jeu {
 	
 	public void jouerTour() {
 		
+		tourPion(pionJack);
+		if (pionJack.getPosition()>=30) {
+			return;
+		}
+			
+		
+		tourPion(pionBill);
+		if(pionBill.getPosition()>=30) {
+			return;
+		}
+			
+		
 	}
 	
 	public void commencerjeu() {
-		tourPion(pionJack);
+		//tourPion(pionJack);
+		//tourPion(pionBill);
+		
+		do{
+		jouerTour();
+		}while(pionJack.getPosition()<=30 && pionBill.getPosition()<=30 );
 	}
 	
-	public int nouvellePosition=resultatDes()+position;
 }
