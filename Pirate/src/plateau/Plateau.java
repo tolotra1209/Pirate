@@ -15,5 +15,7 @@ public class Plateau {
 			cases[i] = new Case(i, Type.NORMAL);
 		}
 		
+		
+		
 	}
 }

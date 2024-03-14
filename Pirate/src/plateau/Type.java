@@ -1,5 +1,14 @@
 package plateau;
 
 public enum Type {
-	NORMAL, BOMBE, OBJET, ACTION
+	NORMAL,
+	SAKE,
+	REQUIN,
+	DOUBLECANON,
+	SABRE,
+	REVOLVER,
+	BARQUE,
+	POTION,
+	STORM,
+	PERROQUET
 }
