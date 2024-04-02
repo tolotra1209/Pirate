@@ -3,73 +3,86 @@ package jeu;
 import java.util.Random;
 import java.util.Scanner;
 
+import affichage.IAffichage;
 import personnage.Couleur;
 import personnage.Pion;
 import plateau.Plateau;
 
-public class Jeu {
+
+public class Jeu implements IAffichage {
 	
 	private int position;
 	private Pion pionJack;
 	private Pion pionBill;
 	private Scanner scanner;
+	private Plateau plateau;
+	private int nbCases = 30;
+	
 	
 	public Jeu() {
-		pionJack = new Pion("Jack",Couleur.ROUGE);
-		pionBill = new Pion("Bill",Couleur.BLEU);
+		pionJack = new Pion("Jack",5,Couleur.ROUGE);
+		pionBill = new Pion("Bill",5,Couleur.BLEU);
 		scanner = new Scanner(System.in);
+		plateau = new Plateau();
 	}
-	
-	public int resultatDes() {
-		return lancerDe()+lancerDe();
-	}
-	
-	
-	public String afficherPosition(Pion pion) {
-		return "Le joueur "+ pion.getNom() +" avance jusqu'à la case "+pion.getPosition()+".";
-	}
-	
-	public void tourPion(Pion pion) {
+		
+	public void tourPion(Pion pion, Pion adversaire) {
 		System.out.println("Appuyez sur entrée pour lancée le dé....");
 		scanner.nextLine();
 		
-		int res1 = resultatDes();
-		System.out.println("Résultat dé: "+res1);
-		pion.deplacerPion(res1);
+		int res = De.resultatDes();
+		afficherResultatDes(res);
+		pion.avancerPion(res);
 		
-		System.out.println(afficherPosition(pion));
+		afficherPosition(pion);
 		
 	}
 	
-	public static int lancerDe() {
-		Random random=new Random();
-		return random.nextInt(6)+1;
-	}
 	
 	
 	public void jouerTour() {
-		
-		tourPion(pionJack);
-		if (pionJack.getPosition()>=30) {
-			return;
-		}
-			
-		
-		tourPion(pionBill);
-		if(pionBill.getPosition()>=30) {
-			return;
-		}
-			
-		
+	    tourPion(pionJack, pionBill);
+	    plateau.appliquerEffet(pionJack.getPosition(), pionJack,pionBill);
+	    if (pionJack.getPosition() >= 30) {
+	        return;
+	    }
+
+	    tourPion(pionBill, pionJack);
+	    plateau.appliquerEffet(pionBill.getPosition(), pionBill,pionJack);
+	    if (pionBill.getPosition() >= 30) {
+	        return;
+	    }
 	}
 	
 	public void commencerjeu() {
 		//tourPion(pionJack);
 		//tourPion(pionBill);
-		
+		plateau.afficherPlateau();
 		do{
 		jouerTour();
 		}while(pionJack.getPosition()<=30 && pionBill.getPosition()<=30 );
+		
+		if (pionJack.getPosition() >= nbCases-1 || pionBill.getVie()== 0 ) {
+			afficherFinDeJeu(pionJack.getNom()); 
+        } else if (pionBill.getPosition() >= nbCases-1 || pionJack.getVie()== 0) {
+        	afficherFinDeJeu(pionBill.getNom());
+        }
 	}
+
 	
+	@Override
+	public void afficherPosition(Pion pion) {
+		System.out.println( "Le joueur "+ pion.getNom() +" avance jusqu'à la case "+pion.getPosition()+".");
+	}
+
+	@Override
+	public void afficherResultatDes(int resultat) {
+        System.out.println( "Résultat des dés : " + resultat);
+    }
+
+	@Override
+	public void afficherFinDeJeu(String gagnant) {
+		System.out.println("\nLe joueur " + gagnant + " a gagné!");
+		
+	}
 }

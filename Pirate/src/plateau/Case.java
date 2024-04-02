@@ -1,6 +1,8 @@
 package plateau;
 
-public class Case {
+import personnage.Pion;
+
+public abstract class Case {
 	private int numero;
 	private Type type;
 	
@@ -17,5 +19,6 @@ public class Case {
 		return type;
 	}
 	
+	public abstract void effet(Pion pion, Pion adversaire); 
 	
 }
