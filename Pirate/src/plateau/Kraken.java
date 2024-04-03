@@ -10,7 +10,7 @@ public class Kraken extends Case{
 	
 
 	@Override
-    public void effet(Pion pion,Pion adversaire) {
+    public void effet(Pion pion,Pion adversaire,Plateau plateau) {
         pion.perdreVie(4);
         
     }

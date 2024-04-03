@@ -94,7 +94,27 @@ public class Plateau {
         plateau.afficherPlateau();
     }
     
-    public void appliquerEffet(int position, Pion pion, Pion adversaire) {
+    public Case choisirCaseAleatoire(int positionActuelle) {
+        Random random = new Random();
+        int indexCaseAleatoire;
+
+        // Sélectionner un index de case différent de la position actuelle
+        do {
+            indexCaseAleatoire = random.nextInt(nbCases);
+        } while (indexCaseAleatoire == positionActuelle);
+
+        return cases[indexCaseAleatoire];
+    }
+    
+    public void modifierCase(int numero, Type nouveauType) {
+        if (numero >= 1 && numero <= nbCases) {
+            cases[numero - 1].setType(nouveauType);
+        } else {
+            System.out.println("Numéro de case invalide.");
+        }
+    }
+    
+    public void appliquerEffet(int position, Pion pion, Pion adversaire,Plateau plateau) {
         // Vérifie si la position est valide
         if (position < 0 || position >= nbCases) {
             return;
@@ -112,45 +132,56 @@ public class Plateau {
                 // Aucun effet spécial pour une case normale
                 break;
             case SAKE:
-                ((Sake)currentCase).effet(pion,adversaire);
+                ((Sake)currentCase).effet(pion,adversaire,plateau);
                 System.out.println("Effet de la case : La vie de " + pion.getNom() + " a augmenté de 1 point.");
                 break;
             case REQUIN:
-            	((Requin)currentCase).effet(pion,adversaire);
+            	((Requin)currentCase).effet(pion,adversaire,plateau);
                 System.out.println("Effet de la case : La vie de " + pion.getNom() + " a augmenté  de 2 points.");
                 break;
             case STORM:
-            	((Storm)currentCase).effet(pion,adversaire);
+            	((Storm)currentCase).effet(pion,adversaire,plateau);
                 System.out.println("Effet de la case : Le pion " + pion.getNom() + " revient à la case départ.");
                 break;
             case KRAKEN:
-            	((Kraken)currentCase).effet(pion,adversaire);
-                System.out.println("Effet de la case : La santé de " + pion.getNom() + " a diminué de 3 points.");
+            	((Kraken)currentCase).effet(pion,adversaire,plateau);
+                System.out.println("Effet de la case : La santé de " + pion.getNom() + " a diminué de 4 points.");
                 break;
             case BARQUE:
-            	((Barque)currentCase).effet(pion,adversaire);
+            	((Barque)currentCase).effet(pion,adversaire,plateau);
                 System.out.println("Effet de la case : Le pion de " + pion.getNom() + " avance de 5 cases.");
                 break;
             case DOUBLECANON:
-            	((Doublecanon)currentCase).effet(pion,adversaire);
-                System.out.println("Effet de la case : Le pion de " + pion.getNom() + " avance de 1 case"+"et le pion de "+adversaire.getNom()+"recule de 2 cases et perd 2 pv.");
+            	((Doublecanon)currentCase).effet(pion,adversaire,plateau);
+                System.out.println("Effet de la case : Le pion de " + pion.getNom() + " avance de 1 case "+"et le pion de "+adversaire.getNom()+" recule de 2 cases et perd 2 pv.");
                 break;
             case POTION:
-            	((Potion)currentCase).effet(pion,adversaire);
+            	((Potion)currentCase).effet(pion,adversaire,plateau);
                 System.out.println("Effet de la case : La potion est mise dans l'inventaire.");
                 break;
             case SABRE:
-            	((Sabre)currentCase).effet(pion,adversaire);
+            	((Sabre)currentCase).effet(pion,adversaire,plateau);
                 System.out.println("Effet de la case : Le sabre est mise dans l'inventaire.");
                 break;
             case REVOLVER:
-            	((Revolver)currentCase).effet(pion,adversaire);
+            	((Revolver)currentCase).effet(pion,adversaire,plateau);
                 System.out.println("Effet de la case : Le revolver est mise dans l'inventaire.");
+                break;
+            case PERROQUET:
+                // Appliquer l'effet de la case PERROQUET
+                ((Perroquet) currentCase).effet(pion, adversaire,plateau);
+                System.out.println("Effet de la case PERROQUET appliqué.");
+               
                 break;
             default:
                 // Cas par défaut, aucune action nécessaire
                 break;
         }
     }
+
+	public Case[] getCases() {
+		
+		return cases;
+	}
 
 }

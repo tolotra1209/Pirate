@@ -9,7 +9,7 @@ public class Sabre extends Case{
     }
 
 	@Override
-	public void effet(Pion pion,Pion adversaire) {
+	public void effet(Pion pion,Pion adversaire,Plateau plateau) {
 		pion.ajouterObjet(this);
 		
 	}

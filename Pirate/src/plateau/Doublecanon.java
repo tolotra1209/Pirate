@@ -9,7 +9,7 @@ public class Doublecanon extends Case{
     }
 
 	@Override
-	public void effet(Pion pion,Pion adversaire) {
+	public void effet(Pion pion,Pion adversaire,Plateau plateau) {
 		pion.avancerPion(1);
 		adversaire.reculerPion(2);
 		adversaire.perdreVie(2);

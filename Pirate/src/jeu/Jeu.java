@@ -17,6 +17,7 @@ public class Jeu implements IAffichage {
 	private Scanner scanner;
 	private Plateau plateau;
 	private int nbCases = 30;
+	private De de;
 	
 	
 	public Jeu() {
@@ -24,13 +25,14 @@ public class Jeu implements IAffichage {
 		pionBill = new Pion("Bill",5,Couleur.BLEU);
 		scanner = new Scanner(System.in);
 		plateau = new Plateau();
+		de=new De();
 	}
 		
 	public void tourPion(Pion pion, Pion adversaire) {
 		System.out.println("Appuyez sur entrée pour lancée le dé....");
 		scanner.nextLine();
 		
-		int res = De.resultatDes();
+		int res = de.resultatDes();
 		afficherResultatDes(res);
 		pion.avancerPion(res);
 		
@@ -42,13 +44,13 @@ public class Jeu implements IAffichage {
 	
 	public void jouerTour() {
 	    tourPion(pionJack, pionBill);
-	    plateau.appliquerEffet(pionJack.getPosition(), pionJack,pionBill);
+	    plateau.appliquerEffet(pionJack.getPosition(), pionJack,pionBill,plateau);
 	    if (pionJack.getPosition() >= 30) {
 	        return;
 	    }
 
 	    tourPion(pionBill, pionJack);
-	    plateau.appliquerEffet(pionBill.getPosition(), pionBill,pionJack);
+	    plateau.appliquerEffet(pionBill.getPosition(), pionBill,pionJack,plateau);
 	    if (pionBill.getPosition() >= 30) {
 	        return;
 	    }
@@ -60,11 +62,11 @@ public class Jeu implements IAffichage {
 		plateau.afficherPlateau();
 		do{
 		jouerTour();
-		}while(pionJack.getPosition()<=30 && pionBill.getPosition()<=30 );
+		}while(pionJack.getPosition()<30 && pionBill.getPosition()<30 );
 		
-		if (pionJack.getPosition() >= nbCases-1 || pionBill.getVie()== 0 ) {
+		if (pionJack.getPosition() > nbCases-1 || pionBill.getVie()== 0 ) {
 			afficherFinDeJeu(pionJack.getNom()); 
-        } else if (pionBill.getPosition() >= nbCases-1 || pionJack.getVie()== 0) {
+        } else if (pionBill.getPosition() > nbCases-1 || pionJack.getVie()== 0) {
         	afficherFinDeJeu(pionBill.getNom());
         }
 	}

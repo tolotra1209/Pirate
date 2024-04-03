@@ -19,6 +19,11 @@ public abstract class Case {
 		return type;
 	}
 	
-	public abstract void effet(Pion pion, Pion adversaire); 
+	public abstract void effet(Pion pion, Pion adversaire,Plateau plateau);
+
+	public void setType(Type typeAleatoire) {
+		this.type = type;
+		
+	} 
 	
 }
