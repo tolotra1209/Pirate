@@ -10,7 +10,7 @@ public class Potion extends Case{
 
 	@Override
 	public void effet(Pion pion,Pion adversaire) {
-		// TODO Auto-generated method stub
+		pion.ajouterObjet(this);
 		
 	}
 }

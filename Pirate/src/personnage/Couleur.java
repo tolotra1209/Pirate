@@ -1,5 +1,5 @@
 package personnage;
 
-public enum Couleur {
-	ROUGE, BLEU, VERT
+public enum Couleur{
+	ROUGE, BLEU, VERT;
 }

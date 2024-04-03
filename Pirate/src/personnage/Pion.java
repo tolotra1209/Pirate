@@ -21,8 +21,13 @@ public class Pion extends Pirate{
 		this.position=position;
 	}
 	
-	public void avancerPion(int newPos) {
-		position += newPos;
+	public void avancerPion(int pos) {
+		int newPos = position + pos ;
+	    if (newPos <= 30) {
+	        position = newPos;
+	    } else {
+	        position = 30 - (newPos - 30); 
+	    }
 	}
 	
 	public void reculerPion(int pos) {

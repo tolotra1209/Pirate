@@ -135,6 +135,18 @@ public class Plateau {
             	((Doublecanon)currentCase).effet(pion,adversaire);
                 System.out.println("Effet de la case : Le pion de " + pion.getNom() + " avance de 1 case"+"et le pion de "+adversaire.getNom()+"recule de 2 cases et perd 2 pv.");
                 break;
+            case POTION:
+            	((Potion)currentCase).effet(pion,adversaire);
+                System.out.println("Effet de la case : La potion est mise dans l'inventaire.");
+                break;
+            case SABRE:
+            	((Sabre)currentCase).effet(pion,adversaire);
+                System.out.println("Effet de la case : Le sabre est mise dans l'inventaire.");
+                break;
+            case REVOLVER:
+            	((Revolver)currentCase).effet(pion,adversaire);
+                System.out.println("Effet de la case : Le revolver est mise dans l'inventaire.");
+                break;
             default:
                 // Cas par défaut, aucune action nécessaire
                 break;

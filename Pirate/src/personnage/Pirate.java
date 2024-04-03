@@ -13,6 +13,8 @@ public class Pirate {
 		this.vie=vie;
 	}
 	
+	
+
 	public String getNom() {
 		return nom;
 	}
@@ -40,5 +42,6 @@ public class Pirate {
 	public void ajouterObjet(Object objet) {
         inventaire.add(objet);
     }
+	
 	
 }
